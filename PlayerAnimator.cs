@@ -9,10 +9,8 @@ public class PlayerAnimator : AnimatedSprite
 		base._Ready();
 		_anim = GetNode<AnimatedSprite>("/root/Player/Animation");
 	}
-	public void PlayMoveAnimation(Vector2 moveDirection, bool isOnFloor)
+	public void PlayMoveAnimation(Vector2 moveDirection, bool isOnFloor, float airVelocity)
 	{
-		Console.WriteLine(isOnFloor);
-
 		if (moveDirection.x == 0 && isOnFloor)
 		{
 			Play("Idle");
@@ -20,6 +18,15 @@ public class PlayerAnimator : AnimatedSprite
 		else if (moveDirection.x !=0 && isOnFloor)
 		{
 			Play("Run");
+		}
+
+		if (airVelocity < 0 && !isOnFloor)
+		{
+			Play("JumpUp");
+		}
+		else if (airVelocity > 0 && !isOnFloor)
+		{
+			Play("JumpDown");
 		}
 	}
 

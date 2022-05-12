@@ -6,11 +6,11 @@ public class Player : KinematicBody2D
 	#region Private variable
 	private PlayerAnimator _animator;
 	private Vector2 _moveDirection;
-	private Transform2D _transform;
 	private Vector2 _upDirection = Vector2.Up;
-	private Vector2 _gravity = new Vector2(0,2);
+	private Vector2 _gravity = new Vector2(0,1);
 	private float _speed = 100;
-	private float _jumpForce = 25;
+	private float _jumpForce = -5f;
+	private float _airVelocity = 0;
     private bool _isOnFloor;
 	private bool _rotateObject;
 	#endregion
@@ -20,20 +20,19 @@ public class Player : KinematicBody2D
     {
 		base._Ready();
         _animator = GetNode<PlayerAnimator>("/root/BaseLevel/Player/Animation");
-		_transform = new Transform2D(); 
     }
 	public override void _PhysicsProcess(float delta)
 	{
 		Movement();
-		Jump();
+
         _isOnFloor = IsOnFloor();
-		_animator.PlayMoveAnimation(_moveDirection, _isOnFloor);
+		_animator.PlayMoveAnimation(_moveDirection, _isOnFloor, _airVelocity);
 		_animator.RotateSprite(_moveDirection);
 	}
 
 	private void Movement()
 	{
-		_moveDirection = _gravity;
+		_moveDirection += _gravity / 4;
 
 		if (Input.IsActionPressed("MoveRight"))
 		{
@@ -43,20 +42,27 @@ public class Player : KinematicBody2D
 		{
 			_moveDirection.x = -1;
 		}
-
-		if (Input.IsActionPressed("Jump") && _isOnFloor)
+		else
 		{
-			_moveDirection.y -= _jumpForce;
+			_moveDirection.x = 0;
 		}
+		Jump();
 		MoveAndSlide(_moveDirection * _speed, _upDirection);
-
 	}
 
 
 	private void Jump()
 	{
-
-
+		if (Input.IsActionJustPressed("Jump") && _isOnFloor)
+		{
+			_airVelocity = _jumpForce;
+		}
+		if (_airVelocity <= 0)
+		{
+			_airVelocity += _gravity.y / 4;
+			_moveDirection.y = _airVelocity;
+		}
+		Console.WriteLine(_airVelocity);
 	}
 
 	/*

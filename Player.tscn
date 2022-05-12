@@ -25,13 +25,8 @@
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
-"loop": true,
+"loop": false,
 "name": "JumpUp",
-"speed": 8.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "Idle",
 "speed": 8.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 2 ) ],
@@ -49,14 +44,19 @@ animations = [ {
 "name": "Climb",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 14 ) ],
 "loop": true,
-"name": "JumpDown",
+"name": "Idle",
 "speed": 8.0
 }, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "Hurt",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "JumpDown",
 "speed": 8.0
 } ]
 
@@ -71,7 +71,7 @@ script = ExtResource( 20 )
 position = Vector2( 0, -16 )
 frames = SubResource( 1 )
 animation = "Idle"
-frame = 2
+frame = 3
 playing = true
 script = ExtResource( 21 )
 
