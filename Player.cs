@@ -62,7 +62,7 @@ public class Player : KinematicBody2D
 			_airVelocity += _gravity.y / 4;
 			_moveDirection.y = _airVelocity;
 		}
-		Console.WriteLine(_airVelocity);
+		//Console.WriteLine(_airVelocity);
 	}
 
 	/*
