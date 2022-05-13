@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/Sunny-land-assets-files/PNG/environment/layers/tileset.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Sunny-land-assets-files/PNG/sprites/gem/gem-1.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sunny-land-assets-files/PNG/sprites/enemy-death/enemy-death-2.png" type="Texture" id=10]
 [ext_resource path="res://Eagle.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Slug.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -789,6 +790,7 @@ drag_margin_bottom = 0.05
 light_mask = 2
 position = Vector2( 705, 313 )
 frames = SubResource( 15 )
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="Gem"]
@@ -829,6 +831,9 @@ region_rect = Rect2( 0, 0, 528, 368 )
 __meta__ = {
 "_editor_description_": "		"
 }
+
+[node name="Slug" parent="." instance=ExtResource( 12 )]
+position = Vector2( 581, 164 )
 
 [node name="Eagle" parent="." instance=ExtResource( 11 )]
 position = Vector2( 871, 132 )

@@ -7,7 +7,7 @@ public class PlayerAnimator : AnimatedSprite
 	public override void _Ready()
 	{
 		base._Ready();
-		_anim = GetNode<AnimatedSprite>("/root/Player/Animation");
+		_anim = GetNode<AnimatedSprite>("/root/BaseLevel/Player/Animation");
 	}
 	public void PlayMoveAnimation(Vector2 moveDirection, bool isOnFloor, float airVelocity)
 	{

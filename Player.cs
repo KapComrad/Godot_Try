@@ -65,6 +65,16 @@ public class Player : KinematicBody2D
 		//Console.WriteLine(_airVelocity);
 	}
 
+	private void OnEnemyContact(Node2D enemy)
+	{
+		GD.Print(enemy);
+		if (enemy.HasMethod("PlayAnimationHurt"))
+		{
+			GD.Print("PlayAnimationHurt");
+			enemy.Call("PlayAnimationHurt");
+		}
+	}
+
 	/*
 	private void RotatePlayer(Vector2 moveDirection)
 	{
