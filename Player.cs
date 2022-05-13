@@ -73,6 +73,17 @@ public class Player : KinematicBody2D
 			GD.Print("PlayAnimationHurt");
 			enemy.Call("PlayAnimationHurt");
 		}
+		HitEnemy(enemy);
+	}
+
+	private void HitEnemy(Node2D enemy)
+	{
+		_airVelocity = _jumpForce / 1.5f;
+	}
+
+	private void TakeDamage(Node2D enemy)
+	{
+
 	}
 
 	/*

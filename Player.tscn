@@ -77,7 +77,7 @@ script = ExtResource( 20 )
 position = Vector2( 0, -16 )
 frames = SubResource( 1 )
 animation = "Idle"
-frame = 1
+frame = 2
 playing = true
 script = ExtResource( 21 )
 
