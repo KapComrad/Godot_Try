@@ -22,14 +22,13 @@ public class Slug : KinematicBody2D
         //_attackArea.SetDeferred("monitorable",false);
         _collision.QueueFree();
         _attackArea.QueueFree();
-        Console.WriteLine("Disabled");
     }
 
     public void Attack(Node2D player)
     {
         if (player.HasMethod("TakeDamage"))
         {
-            player.Call("TakeDamage", damage);
+            player.Call("TakeDamage", damage, player.GlobalPosition.DirectionTo(GlobalPosition));
         }
     }
 }

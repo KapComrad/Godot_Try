@@ -11,13 +11,10 @@ public class HUD : Control
 
 		_hpTexture = ResourceLoader.Load("res://Assets/Hearts/PNG/basic/heart.png") as Texture;
 		_hpContainer = GetNode<HBoxContainer>("/root/BaseLevel/CanvasLayer/HUD/MarginContainer/VBoxContainer/HBoxContainer/HPContainer");
-        Console.WriteLine(_hpContainer);
 	}
 
 	public void UpdateHP(int hp)
 	{
-		Console.WriteLine("Started!!! " + hp);
-
 		int currentHP = _hpContainer.GetChildCount();
 		if (hp > currentHP)
 		{
@@ -36,11 +33,9 @@ public class HUD : Control
 				
 			}
 		}
-		Console.WriteLine("Count: "+_hpContainer.GetChildCount());
 	}
 	public void PlayerHpChange(int hp)
 	{
 		UpdateHP(hp);
-		Console.WriteLine("HOHO JOJO");
 	}
 }

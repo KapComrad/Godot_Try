@@ -44,11 +44,13 @@ position = Vector2( 0, 5.5 )
 shape = SubResource( 2 )
 
 [node name="AgressionArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AgressionArea"]
 shape = SubResource( 3 )
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
