@@ -17,10 +17,11 @@ public class Player : KinematicBody2D
 	private float _jumpForce = -5f;
 	private float _airVelocity = 0;
 	private int _hp = 3;
-	private float _maxSaveTime = 2f;
 	private float _saveTime = 0f;
+	private float _maxSaveTime = 2f;
 	private bool _isOnFloor;
 	private bool _rotateObject;
+	private bool _inSafe;
 	#endregion
 
 
@@ -111,20 +112,24 @@ public class Player : KinematicBody2D
 		{
 			_animationPlayer.Seek(0, true);
 			_animationPlayer.Stop();
+			_inSafe = false;
 		}
 	}
 
 	private void TakeDamage(int damage, Vector2 attackDirection)
 	{
-		ChangeHp(damage);
-		_saveTime = _maxSaveTime;
+		if (!_inSafe)
+		{
+			ChangeHp(damage);
+			_saveTime = _maxSaveTime;
+			_inSafe = true;
+		}
 	}
 
 	private void ChangeHp(int change)
 	{
 		_hp -= change;
 		EmitSignal("HpChange", _hp);
-
 	}
 
 }
