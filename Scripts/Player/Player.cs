@@ -4,28 +4,35 @@ using System;
 public class Player : KinematicBody2D
 {
 	#region Private variable
-	private PlayerAnimator _animator;
+	private AnimatorScript _animator;
 	private Vector2 _moveDirection;
 	private Vector2 _upDirection = Vector2.Up;
 	private Vector2 _gravity = new Vector2(0,1);
+	private HUD _hud;
 	private float _speed = 100;
 	private float _jumpForce = -5f;
 	private float _airVelocity = 0;
-    private bool _isOnFloor;
+	private bool _isOnFloor;
 	private bool _rotateObject;
+	private int hp = 3;
 	#endregion
 
 
-    public override void _Ready()
-    {
+	[Signal]
+	public delegate void HpChange(int Hp);
+
+	public override void _Ready()
+	{
 		base._Ready();
-        _animator = GetNode<PlayerAnimator>("/root/BaseLevel/Player/Animation");
-    }
+		_animator = GetNode<AnimatorScript>("/root/BaseLevel/Player/Animation");
+		CallDeferred("TakeDamage",0);
+	}
+
 	public override void _PhysicsProcess(float delta)
 	{
 		Movement();
 
-        _isOnFloor = IsOnFloor();
+		_isOnFloor = IsOnFloor();
 		_animator.PlayMoveAnimation(_moveDirection, _isOnFloor, _airVelocity);
 		_animator.RotateSprite(_moveDirection);
 	}
@@ -50,7 +57,6 @@ public class Player : KinematicBody2D
 		MoveAndSlide(_moveDirection * _speed, _upDirection);
 	}
 
-
 	private void Jump()
 	{
 		if (Input.IsActionJustPressed("Jump") && _isOnFloor)
@@ -62,7 +68,6 @@ public class Player : KinematicBody2D
 			_airVelocity += _gravity.y / 4;
 			_moveDirection.y = _airVelocity;
 		}
-		//Console.WriteLine(_airVelocity);
 	}
 
 	private void OnEnemyContact(Node2D enemy)
@@ -81,8 +86,15 @@ public class Player : KinematicBody2D
 		_airVelocity = _jumpForce / 1.5f;
 	}
 
-	private void TakeDamage(Node2D enemy)
+	private void TakeDamage(int damage)
 	{
+		ChangeHp(damage);
+	}
+
+	private void ChangeHp(int change)
+	{
+		hp -= change;
+		EmitSignal("HpChange", hp);
 
 	}
 

@@ -1,15 +1,18 @@
 using Godot;
 using System;
 
-public class PlayerAnimator : AnimatedSprite
+public class AnimatorScript : AnimatedSprite
 {
-	private AnimatedSprite _anim;
+	private AnimatedSprite _animator;
+
+	
 	public override void _Ready()
 	{
 		base._Ready();
-		_anim = GetNode<AnimatedSprite>("/root/BaseLevel/Player/Animation");
+		_animator = GetNode<AnimatedSprite>("/root/BaseLevel/Player/Animation");
 	}
-	public void PlayMoveAnimation(Vector2 moveDirection, bool isOnFloor, float airVelocity)
+	
+	public void PlayMoveAnimation(Vector2 moveDirection, bool isOnFloor, float airVelocity = 0)
 	{
 		if (moveDirection.x == 0 && isOnFloor)
 		{

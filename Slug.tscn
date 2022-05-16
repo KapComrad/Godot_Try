@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/hurt/sprites/hurt5.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/Poo Goo/sprites/poo-goo3.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/Poo Goo/sprites/poo-goo2.png" type="Texture" id=8]
-[ext_resource path="res://Slug.cs" type="Script" id=11]
+[ext_resource path="res://Scripts/Enemy/Slug.cs" type="Script" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

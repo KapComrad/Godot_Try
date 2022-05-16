@@ -791,6 +791,7 @@ drag_margin_bottom = 0.05
 light_mask = 2
 position = Vector2( 705, 313 )
 frames = SubResource( 15 )
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="Gem"]
@@ -858,3 +859,6 @@ position = Vector2( -343, 52 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 13 )]
+rect_scale = Vector2( 1.00278, 1.02501 )
+
+[connection signal="HpChange" from="Player" to="CanvasLayer/HUD" method="PlayerHpChange"]
