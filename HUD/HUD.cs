@@ -13,7 +13,7 @@ public class HUD : Control
 		_hpContainer = GetNode<HBoxContainer>("/root/BaseLevel/CanvasLayer/HUD/MarginContainer/VBoxContainer/HBoxContainer/HPContainer");
 	}
 
-	public void UpdateHP(int hp)
+	private void UpdateHP(int hp)
 	{
 		int currentHP = _hpContainer.GetChildCount();
 		if (hp > currentHP)

@@ -12,21 +12,25 @@ public class Player : KinematicBody2D
 	private Vector2 _moveDirection;
 	private Vector2 _upDirection = Vector2.Up;
 	private Vector2 _gravity = new Vector2(0,1);
+	private Vector2 _pushPoint;
 	
 	private float _speed = 100;
 	private float _jumpForce = -5f;
 	private float _airVelocity = 0;
 	private int _hp = 3;
+	private int _force;
 	private float _saveTime = 0f;
-	private float _maxSaveTime = 2f;
+	private float _maxSaveTime = 1f;
 	private bool _isOnFloor;
 	private bool _rotateObject;
 	private bool _inSafe;
+	private bool _takeDamage;
 	#endregion
-
-
+	#region Signals
 	[Signal]
 	public delegate void HpChange(int Hp);
+	#endregion
+
 
 	public override void _Ready()
 	{
@@ -39,7 +43,17 @@ public class Player : KinematicBody2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		Movement();
+		if (_takeDamage && Position.DistanceTo(_pushPoint) > 5)
+		{
+			PushTarget(delta);
+			GD.Print(Position.DistanceTo(_pushPoint));
+		}
+		else
+		{
+			_takeDamage = false;
+			Movement();
+		}
+
 		_isOnFloor = IsOnFloor();
 		
 		_animator.PlayMoveAnimation(_moveDirection, _isOnFloor, _airVelocity);
@@ -87,7 +101,6 @@ public class Player : KinematicBody2D
 		{
 			HitEnemy();
 		}
-		GD.Print(_rayCast2D.Enabled + " "+ _isOnFloor);
 	}
 
 	private void HitEnemy()
@@ -95,9 +108,9 @@ public class Player : KinematicBody2D
 		Node2D enemy = (Node2D)_rayCast2D.GetCollider();
 		_airVelocity = _jumpForce / 1.5f;
 		_isOnFloor = false;
-		if (enemy.HasMethod("PlayAnimationHurt"))
+		if (enemy != null)
 		{
-			enemy.Call("PlayAnimationHurt");
+			((Slug)enemy).PlayAnimationHurt();
 		}
 	}
 
@@ -116,14 +129,23 @@ public class Player : KinematicBody2D
 		}
 	}
 
-	private void TakeDamage(int damage, Vector2 attackDirection)
+	public void TakeDamage(int damage, Vector2 attackDirection, int force)
 	{
 		if (!_inSafe)
 		{
 			ChangeHp(damage);
 			_saveTime = _maxSaveTime;
+			_pushPoint = GlobalPosition - attackDirection - new Vector2 (attackDirection.x * 60,attackDirection.y + 50);
+
+			_force = force;
 			_inSafe = true;
+			_takeDamage = true;
 		}
+	}
+
+	private void PushTarget(float delta)
+	{
+		MoveAndSlide(Position.DirectionTo(_pushPoint) * _force, _upDirection);
 	}
 
 	private void ChangeHp(int change)

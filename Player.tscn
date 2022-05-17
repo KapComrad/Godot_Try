@@ -29,6 +29,16 @@ animations = [ {
 "name": "Run",
 "speed": 8.0
 }, {
+"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 8.0
+}, {
 "frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 17 ) ],
 "loop": true,
 "name": "Climb",
@@ -44,19 +54,9 @@ animations = [ {
 "name": "Hurt",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": false,
 "name": "JumpDown",
-"speed": 8.0
-}, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "Crouch",
 "speed": 8.0
 } ]
 
@@ -89,10 +89,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false, true ]
+"values": [ true, false, true, false, true ]
 }
 
 [node name="Player" type="KinematicBody2D"]
@@ -103,7 +103,7 @@ script = ExtResource( 20 )
 position = Vector2( 0, -16 )
 frames = SubResource( 1 )
 animation = "Idle"
-frame = 1
+frame = 3
 playing = true
 script = ExtResource( 21 )
 

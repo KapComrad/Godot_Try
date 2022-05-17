@@ -6,7 +6,8 @@ public class Slug : KinematicBody2D
     private AnimatedSprite _animated;
     private CollisionShape2D _collision;
     private Area2D _attackArea;
-    private int damage = 1;
+    private int _damage = 1;
+    private int _force = 350;
     public override void _Ready()
     {
         _animated = GetNode<AnimatedSprite>("Animator");
@@ -26,9 +27,10 @@ public class Slug : KinematicBody2D
 
     public void Attack(Node2D player)
     {
-        if (player.HasMethod("TakeDamage"))
+        if (player is Player)
         {
-            player.Call("TakeDamage", damage, player.GlobalPosition.DirectionTo(GlobalPosition));
+            ((Player)player).TakeDamage(_damage, player.GlobalPosition.DirectionTo(GlobalPosition), _force);
         }
+
     }
 }
