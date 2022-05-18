@@ -73,21 +73,21 @@ public class Slug : KinematicBody2D
 		if (_firstPoint == 0) _patrolBackward = false;
 		if (_firstPoint >=  NumberOfPoints()) _patrolBackward = true;
 
-
-
-		if (Position.DistanceTo(_pathPoints[_firstPoint]) > 5 && !_patrolBackward)
+		if (Position.DistanceTo(_pathPoints[_firstPoint]) > 5 && (!_patrolBackward || _patrolBackward))
 		{
 			_moveDirection = Position.DirectionTo(_pathPoints[_firstPoint]) * _speed;
 			MoveAndSlide(_moveDirection, _upDirection);
 		}
 		else if (!_patrolBackward && _firstPoint <  NumberOfPoints()) _firstPoint++;
-
+		else if (_patrolBackward) _firstPoint--;
+	/*
 		if (Position.DistanceTo(_pathPoints[_firstPoint]) > 5 && _patrolBackward)
 		{
 			_moveDirection = Position.DirectionTo(_pathPoints[_firstPoint]) * _speed;
 			MoveAndSlide(_moveDirection, _upDirection);
 		}
 		else if (_patrolBackward) _firstPoint--;
+		*/
 
 		_animated.Play("Run");
         _animatorScript.RotateSprite(-_moveDirection,_animated);
