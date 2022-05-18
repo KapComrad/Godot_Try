@@ -14,13 +14,13 @@ public class Player : KinematicBody2D
 	private Vector2 _gravity = new Vector2(0,1);
 	private Vector2 _pushPoint;
 	
-	private float _speed = 100;
-	private float _jumpForce = -5f;
+	[Export] private float _speed = 100;
+	[Export] private float _jumpForce = -5f;
 	private float _airVelocity = 0;
-	private int _hp = 3;
+	[Export] private int _hp = 3;
 	private int _force;
 	private float _saveTime = 0f;
-	private float _maxSaveTime = 1f;
+	[Export] private float _maxSaveTime = 1f;
 	private bool _isOnFloor;
 	private bool _rotateObject;
 	private bool _inSafe;
@@ -41,12 +41,16 @@ public class Player : KinematicBody2D
 		CallDeferred("ChangeHp",0);
 	}
 
+	bool CanPush() => _takeDamage && Position.DistanceTo(_pushPoint) > 5;
+
+
+
 	public override void _PhysicsProcess(float delta)
 	{
-		if (_takeDamage && Position.DistanceTo(_pushPoint) > 5)
+		if (CanPush()) 
 		{
 			PushTarget(delta);
-			GD.Print(Position.DistanceTo(_pushPoint));
+			return;
 		}
 		else
 		{
@@ -131,16 +135,15 @@ public class Player : KinematicBody2D
 
 	public void TakeDamage(int damage, Vector2 attackDirection, int force)
 	{
-		if (!_inSafe)
-		{
-			ChangeHp(damage);
-			_saveTime = _maxSaveTime;
-			_pushPoint = GlobalPosition - attackDirection - new Vector2 (attackDirection.x * 60,attackDirection.y + 50);
+		if (_inSafe) return;
 
-			_force = force;
-			_inSafe = true;
-			_takeDamage = true;
-		}
+		ChangeHp(damage);
+		_saveTime = _maxSaveTime;
+		_pushPoint = GlobalPosition - attackDirection - new Vector2 (attackDirection.x * 60,attackDirection.y + 50);
+
+		_force = force;
+		_inSafe = true;
+		_takeDamage = true;
 	}
 
 	private void PushTarget(float delta)
