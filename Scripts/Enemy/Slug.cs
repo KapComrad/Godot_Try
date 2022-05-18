@@ -4,6 +4,7 @@ using System;
 public class Slug : KinematicBody2D
 {
 	private AnimatedSprite _animated;
+	private AnimatorScript _animatorScript;
 	private CollisionShape2D _collision;
 	private Area2D _attackArea;
 	private Path2D _path2D; 
@@ -13,29 +14,28 @@ public class Slug : KinematicBody2D
 	private float _pathLength;
 	private float _currentPosition;
 	private bool _patrolBackward;
-    [Export] private bool _enabledPath = true;
+	[Export] private bool _enabledPath = true;
 	[Export] private float _speed = 100;
 	[Export] private int _damage = 1;
 	[Export] private int _force = 300;
 	[Export] private int _firstPoint = 0;
-	[Export] private Vector2[] _pathPoints;
+	private Vector2[] _pathPoints;
 
-    private int NumberOfPoints() => (int)(_pathLength / _path2D.Curve.BakeInterval);
+	private int NumberOfPoints() => (int)(_pathLength / _path2D.Curve.BakeInterval);
 	public override void _Ready()
 	{
-		_animated = GetNode<AnimatedSprite>("Animator");
+        _animatorScript = new AnimatorScript();
+		_animated = GetNode<AnimatedSprite>("Animation");
 		_collision = GetNode<CollisionShape2D>("Collision");
 		_attackArea = GetNode<Area2D>("AttackArea");
-		if (HasNode("Node2D/Path2D"))
+		if (HasNode("Node/Path2D"))
 		{
-			_path2D = GetNode<Path2D>("Node2D/Path2D");
-            _pathLength = _path2D.Curve.GetBakedLength();
-            GD.Print("Length: "+_pathLength);
+			_path2D = GetNode<Path2D>("Node/Path2D");
+			_pathLength = _path2D.Curve.GetBakedLength();
 			_pathPoints = new Vector2[(int)_pathLength];
 			for (int i = 0; _pathLength / _path2D.Curve.BakeInterval > i ; i ++)
 			{
 				_pathPoints[i] = _path2D.Curve.GetBakedPoints()[i];
-				GD.Print("PathPoint:" + _pathPoints[i]);
 			}
 		}    
 	}
@@ -53,7 +53,7 @@ public class Slug : KinematicBody2D
 		//_collision.SetDeferred("disabled",true);
 		//_attackArea.SetDeferred("monitoring",false);
 		//_attackArea.SetDeferred("monitorable",false);
-        _enabledPath = false;
+		_enabledPath = false;
 		_collision.QueueFree();
 		_attackArea.QueueFree();
 	}
@@ -68,44 +68,29 @@ public class Slug : KinematicBody2D
 
 	private void MovementToPath(float delta)
 	{
-        if (!_enabledPath) return;
+		if (!_enabledPath) return;
 		if (_path2D == null) return;
-        if (_firstPoint == 0) _patrolBackward = false;
-        if (_firstPoint >=  NumberOfPoints()) _patrolBackward = true;
+		if (_firstPoint == 0) _patrolBackward = false;
+		if (_firstPoint >=  NumberOfPoints()) _patrolBackward = true;
 
 
 
 		if (Position.DistanceTo(_pathPoints[_firstPoint]) > 5 && !_patrolBackward)
 		{
-            _moveDirection = Position.DirectionTo(_pathPoints[_firstPoint]) * _speed;
+			_moveDirection = Position.DirectionTo(_pathPoints[_firstPoint]) * _speed;
 			MoveAndSlide(_moveDirection, _upDirection);
-			GD.Print("PLUS: " + _firstPoint + "Length: "+ NumberOfPoints());
 		}
 		else if (!_patrolBackward && _firstPoint <  NumberOfPoints()) _firstPoint++;
 
-        if (Position.DistanceTo(_pathPoints[_firstPoint]) > 5 && _patrolBackward)
-        {
-            _moveDirection = Position.DirectionTo(_pathPoints[_firstPoint]) * _speed;
-            MoveAndSlide(_moveDirection, _upDirection);
-			GD.Print("MINUS: " + _firstPoint + "Distance: " +Position.DistanceTo(_pathPoints[_firstPoint]));
-        }
-        else if (_patrolBackward) _firstPoint--;
-
-
-	}
-/*
-	private void ClosestPoint()
-	{
-		float current = 0;
-		float lowest = 0;
-		for (int i = 0 ; i < _pathPoints.Length; i++)
+		if (Position.DistanceTo(_pathPoints[_firstPoint]) > 5 && _patrolBackward)
 		{
-			current = _pathPoints[i].DistanceTo(Position);
-			if (current < lowest || lowest == 0)
-				lowest = current;
-			GD.Print(lowest);
+			_moveDirection = Position.DirectionTo(_pathPoints[_firstPoint]) * _speed;
+			MoveAndSlide(_moveDirection, _upDirection);
 		}
+		else if (_patrolBackward) _firstPoint--;
+
+		_animated.Play("Run");
+        _animatorScript.RotateSprite(-_moveDirection,_animated);
 
 	}
-	*/
 }

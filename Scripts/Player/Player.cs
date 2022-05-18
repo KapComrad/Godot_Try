@@ -4,7 +4,8 @@ using System;
 public class Player : KinematicBody2D
 {
 	#region Private variable
-	private AnimatorScript _animator;
+	private AnimatedSprite _animator;
+	private AnimatorScript _animatorScript;
 	private AnimationPlayer _animationPlayer;
 	private HUD _hud;
 	private RayCast2D _rayCast2D;
@@ -35,7 +36,8 @@ public class Player : KinematicBody2D
 	public override void _Ready()
 	{
 		base._Ready();
-		_animator = GetNode<AnimatorScript>("Animation");
+		_animatorScript = new AnimatorScript();
+		_animator = GetNode<AnimatedSprite>("Animation");
 		_rayCast2D = GetNode<RayCast2D>("RayCastDown");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		CallDeferred("ChangeHp",0);
@@ -60,8 +62,8 @@ public class Player : KinematicBody2D
 
 		_isOnFloor = IsOnFloor();
 		
-		_animator.PlayMoveAnimation(_moveDirection, _isOnFloor, _airVelocity);
-		_animator.RotateSprite(_moveDirection);
+		_animatorScript.PlayMoveAnimation(_moveDirection, _isOnFloor,_animator, _airVelocity);
+		_animatorScript.RotateSprite(_moveDirection,_animator);
 		SafeTime(delta);
 	}
 

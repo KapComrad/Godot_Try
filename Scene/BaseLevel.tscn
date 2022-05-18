@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Sunny-land-assets-files/PNG/environment/layers/tileset.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -770,6 +770,11 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 408, 169, 0, 0, 0, 0, 606, 169 )
 }
 
+[sub_resource type="Curve2D" id=18]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 827, 169, 0, 0, 0, 0, 1112, 168 )
+}
+
 [node name="BaseLevel" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -797,7 +802,7 @@ drag_margin_bottom = 0.05
 light_mask = 2
 position = Vector2( 705, 313 )
 frames = SubResource( 15 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="Gem"]
@@ -842,22 +847,20 @@ __meta__ = {
 [node name="Enemy" type="Node2D" parent="."]
 
 [node name="Slug" parent="Enemy" instance=ExtResource( 12 )]
-position = Vector2( -39, 36 )
-_pathPoints = PoolVector2Array(  )
+position = Vector2( 339, 165 )
 
-[node name="Node2D" type="Node" parent="Enemy/Slug"]
+[node name="Node" type="Node" parent="Enemy/Slug"]
 
-[node name="Path2D" type="Path2D" parent="Enemy/Slug/Node2D"]
+[node name="Path2D" type="Path2D" parent="Enemy/Slug/Node"]
 curve = SubResource( 17 )
 
 [node name="Slug2" parent="Enemy" instance=ExtResource( 12 )]
-position = Vector2( 725, 39 )
+position = Vector2( 827, 165 )
 
-[node name="Slug4" parent="Enemy" instance=ExtResource( 12 )]
-position = Vector2( 700, 165 )
+[node name="Node" type="Node" parent="Enemy/Slug2"]
 
-[node name="Slug6" parent="Enemy" instance=ExtResource( 12 )]
-position = Vector2( 760, 165 )
+[node name="Path2D" type="Path2D" parent="Enemy/Slug2/Node"]
+curve = SubResource( 18 )
 
 [node name="Eagle" parent="Enemy" instance=ExtResource( 11 )]
 position = Vector2( -107, 86 )

@@ -35,7 +35,7 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource( 11 )
 
-[node name="Animator" type="AnimatedSprite" parent="."]
+[node name="Animation" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "Run"
 
