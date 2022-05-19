@@ -27,8 +27,18 @@ public class AnimatorScript : AnimatedSprite
 	public void RotateSprite(Vector2 moveDirection, AnimatedSprite animatedSprite)
 	{
 		if (moveDirection.x > 0)
-			animatedSprite.FlipH = false;
+			animatedSprite.Scale = new Vector2(1,1);
+		else if (moveDirection.x <0)
+			animatedSprite.Scale = new Vector2(-1,1);
+	}
+/*	
+	public void RotateParticle(Vector2 moveDirection , Particles2D particles2D)
+	{
+		if (moveDirection.x > 0)
+			particles2D.ProcessMaterial. = false;
 		else if (moveDirection.x <0)
 			animatedSprite.FlipH = true;
+
 	}
+	*/
 }

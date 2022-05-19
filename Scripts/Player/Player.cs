@@ -7,11 +7,13 @@ public class Player : KinematicBody2D
 	private AnimatedSprite _animator;
 	private AnimatorScript _animatorScript;
 	private AnimationPlayer _animationPlayer;
+	private PlayerAudio _playerAudio;
 	private HUD _hud;
 	private RayCast2D _rayCast2D;
 
 	private Vector2 _moveDirection;
 	private Vector2 _upDirection = Vector2.Up;
+	[Export] private float _gravityScale;
 	private Vector2 _gravity = new Vector2(0,1);
 	private Vector2 _pushPoint;
 	
@@ -40,12 +42,11 @@ public class Player : KinematicBody2D
 		_animator = GetNode<AnimatedSprite>("Animation");
 		_rayCast2D = GetNode<RayCast2D>("RayCastDown");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		_playerAudio = GetNode<PlayerAudio>("AudioStreamPlayer2D");
 		CallDeferred("ChangeHp",0);
 	}
 
 	bool CanPush() => _takeDamage && Position.DistanceTo(_pushPoint) > 5;
-
-
 
 	public override void _PhysicsProcess(float delta)
 	{
@@ -69,7 +70,7 @@ public class Player : KinematicBody2D
 
 	private void Movement()
 	{
-		_moveDirection += _gravity / 4;
+		_moveDirection = _gravity * _gravityScale;
 
 		if (Input.IsActionPressed("MoveRight"))
 		{
@@ -85,6 +86,7 @@ public class Player : KinematicBody2D
 		}
 		Jump();
 		MoveAndSlide(_moveDirection * _speed, _upDirection);
+		IsHitOnCeiling();
 	}
 
 	private void Jump()
@@ -94,6 +96,7 @@ public class Player : KinematicBody2D
 			_airVelocity = _jumpForce;
 			_rayCast2D.SetDeferred("enabled", true);
 			_isOnFloor = false;
+			_playerAudio.PlayJumpSound();
 		}
 		if (_isOnFloor && _rayCast2D.Enabled)
 			_rayCast2D.SetDeferred("enabled", false);
@@ -108,6 +111,10 @@ public class Player : KinematicBody2D
 			HitEnemy();
 		}
 	}
+	private void IsHitOnCeiling()
+	{
+		if (IsOnCeiling()) _airVelocity =0;
+	}
 
 	private void HitEnemy()
 	{
@@ -117,6 +124,7 @@ public class Player : KinematicBody2D
 		if (enemy != null)
 		{
 			((Slug)enemy).PlayAnimationHurt();
+			_playerAudio.PlayHitSound();
 		}
 	}
 
@@ -150,7 +158,12 @@ public class Player : KinematicBody2D
 
 	private void PushTarget(float delta)
 	{
-		MoveAndSlide(Position.DirectionTo(_pushPoint) * _force, _upDirection);
+		if (((KinematicCollision2D)MoveAndCollide(GlobalPosition.DirectionTo(_pushPoint) * _force)) != null)
+		{
+			_takeDamage = false;
+			return;
+		}
+		MoveAndCollide(GlobalPosition.DirectionTo(_pushPoint) * _force);
 	}
 
 	private void ChangeHp(int change)

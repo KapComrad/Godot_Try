@@ -6,6 +6,7 @@ public class Slug : KinematicBody2D
 	private AnimatedSprite _animated;
 	private AnimatorScript _animatorScript;
 	private CollisionShape2D _collision;
+	private Particles2D _patricles;
 	private Area2D _attackArea;
 	private Path2D _path2D; 
 	private Vector2 _gravity = new Vector2(0,1);
@@ -15,9 +16,9 @@ public class Slug : KinematicBody2D
 	private float _currentPosition;
 	private bool _patrolBackward;
 	[Export] private bool _enabledPath = true;
-	[Export] private float _speed = 100;
+	[Export] private float _speed = 50;
 	[Export] private int _damage = 1;
-	[Export] private int _force = 300;
+	[Export] private int _force = 5;
 	[Export] private int _firstPoint = 0;
 	private Vector2[] _pathPoints;
 
@@ -28,6 +29,7 @@ public class Slug : KinematicBody2D
 		_animated = GetNode<AnimatedSprite>("Animation");
 		_collision = GetNode<CollisionShape2D>("Collision");
 		_attackArea = GetNode<Area2D>("AttackArea");
+		_patricles = GetNode<Particles2D>("Animation/Particles2D");
 		if (HasNode("Node/Path2D"))
 		{
 			_path2D = GetNode<Path2D>("Node/Path2D");
@@ -54,6 +56,7 @@ public class Slug : KinematicBody2D
 		//_attackArea.SetDeferred("monitoring",false);
 		//_attackArea.SetDeferred("monitorable",false);
 		_enabledPath = false;
+		_patricles.QueueFree();
 		_collision.QueueFree();
 		_attackArea.QueueFree();
 	}

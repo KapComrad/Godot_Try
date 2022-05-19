@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/Poo Goo/sprites/poo-goo1.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/Poo Goo/sprites/poo-goo5.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/Poo Goo/sprites/poo-goo4.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/hurt/sprites/hurt5.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/Poo Goo/sprites/poo-goo3.png" type="Texture" id=5]
+[ext_resource path="res://Dirt.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Sunny land Add On Files/Slug/Poo Goo/sprites/poo-goo2.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/Enemy/Slug.cs" type="Script" id=11]
 
@@ -21,14 +22,25 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="ParticlesMaterial" id=5]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+gravity = Vector3( 0, 15, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
+
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 15, 10 )
+extents = Vector2( 15.91, 13.4518 )
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 90.0
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 15, 3.5 )
+extents = Vector2( 17.5, 3.54688 )
 
 [node name="Slug" type="KinematicBody2D"]
 collision_layer = 4
@@ -39,8 +51,16 @@ script = ExtResource( 11 )
 frames = SubResource( 1 )
 animation = "Run"
 
+[node name="Particles2D" type="Particles2D" parent="Animation"]
+position = Vector2( 10, 10 )
+scale = Vector2( 2, 2 )
+amount = 10
+randomness = 1.0
+process_material = SubResource( 5 )
+texture = ExtResource( 6 )
+
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 1, 4 )
+position = Vector2( 1, 1.75375 )
 scale = Vector2( 0.817097, 0.65075 )
 shape = SubResource( 2 )
 
@@ -55,7 +75,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2( 0, 7 )
+position = Vector2( 1.5, 6.54688 )
 shape = SubResource( 4 )
 
 [connection signal="body_entered" from="AttackArea" to="." method="Attack"]
