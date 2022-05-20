@@ -35,13 +35,20 @@ margin_bottom = 31.0
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 4.0
-margin_right = 960.0
+margin_right = 936.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 964.0
-margin_right = 999.0
+[node name="ScoreTextLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 940.0
+margin_right = 987.0
 margin_bottom = 31.0
-text = "Score
+text = "Score : 
 "
+
+[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 991.0
+margin_right = 999.0
+margin_bottom = 14.0
+size_flags_vertical = 0
+text = "1"

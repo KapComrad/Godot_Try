@@ -1,31 +1,30 @@
 using Godot;
 using System;
+using Animator;
 
 public class Player : KinematicBody2D
 {
 	#region Private variable
 	private AnimatedSprite _animator;
-	private AnimatorScript _animatorScript;
 	private AnimationPlayer _animationPlayer;
 	private PlayerAudio _playerAudio;
-	private HUD _hud;
 	private RayCast2D _rayCast2D;
 
 	private Vector2 _moveDirection;
 	private Vector2 _upDirection = Vector2.Up;
-	[Export] private float _gravityScale;
+	[Export] private float _gravityScale = 2.5f;
 	private Vector2 _gravity = new Vector2(0,1);
 	private Vector2 _pushPoint;
 	
 	[Export] private float _speed = 100;
 	[Export] private float _jumpForce = -5f;
+	[Export] private int _jumpNumber = 1;
 	private float _airVelocity = 0;
 	[Export] private int _hp = 3;
 	private int _force;
 	private float _saveTime = 0f;
 	[Export] private float _maxSaveTime = 1f;
 	private bool _isOnFloor;
-	private bool _rotateObject;
 	private bool _inSafe;
 	private bool _takeDamage;
 	#endregion
@@ -37,8 +36,6 @@ public class Player : KinematicBody2D
 
 	public override void _Ready()
 	{
-		base._Ready();
-		_animatorScript = new AnimatorScript();
 		_animator = GetNode<AnimatedSprite>("Animation");
 		_rayCast2D = GetNode<RayCast2D>("RayCastDown");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -46,7 +43,7 @@ public class Player : KinematicBody2D
 		CallDeferred("ChangeHp",0);
 	}
 
-	bool CanPush() => _takeDamage && Position.DistanceTo(_pushPoint) > 5;
+	private bool CanPush() => _takeDamage && Position.DistanceTo(_pushPoint) > 5;
 
 	public override void _PhysicsProcess(float delta)
 	{
@@ -63,8 +60,8 @@ public class Player : KinematicBody2D
 
 		_isOnFloor = IsOnFloor();
 		
-		_animatorScript.PlayMoveAnimation(_moveDirection, _isOnFloor,_animator, _airVelocity);
-		_animatorScript.RotateSprite(_moveDirection,_animator);
+		AnimatorScript.PlayMoveAnimation(_moveDirection, _isOnFloor,_animator, _airVelocity);
+		AnimatorScript.RotateSprite(_moveDirection,_animator);
 		SafeTime(delta);
 	}
 
@@ -91,8 +88,10 @@ public class Player : KinematicBody2D
 
 	private void Jump()
 	{
-		if (Input.IsActionJustPressed("Jump") && _isOnFloor)
+		if (_isOnFloor) _jumpNumber = 1;
+		if (Input.IsActionJustPressed("Jump") && _jumpNumber != 0)
 		{
+			_jumpNumber--;
 			_airVelocity = _jumpForce;
 			_rayCast2D.SetDeferred("enabled", true);
 			_isOnFloor = false;
@@ -123,7 +122,7 @@ public class Player : KinematicBody2D
 		_isOnFloor = false;
 		if (enemy != null)
 		{
-			((Slug)enemy).PlayAnimationHurt();
+			((IDamagable)enemy).Hit();
 			_playerAudio.PlayHitSound();
 		}
 	}
@@ -163,7 +162,7 @@ public class Player : KinematicBody2D
 			_takeDamage = false;
 			return;
 		}
-		MoveAndCollide(GlobalPosition.DirectionTo(_pushPoint) * _force);
+		MoveAndCollide(GlobalPosition.DirectionTo(_pushPoint) * _force * delta);
 	}
 
 	private void ChangeHp(int change)

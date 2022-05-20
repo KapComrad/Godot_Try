@@ -1,10 +1,10 @@
 using Godot;
 using System;
+using Animator;
 
-public class Slug : KinematicBody2D
+public class Slug : KinematicBody2D, IDamagable
 {
 	private AnimatedSprite _animated;
-	private AnimatorScript _animatorScript;
 	private CollisionShape2D _collision;
 	private Particles2D _patricles;
 	private Area2D _attackArea;
@@ -25,7 +25,6 @@ public class Slug : KinematicBody2D
 	private int NumberOfPoints() => (int)(_pathLength / _path2D.Curve.BakeInterval);
 	public override void _Ready()
 	{
-        _animatorScript = new AnimatorScript();
 		_animated = GetNode<AnimatedSprite>("Animation");
 		_collision = GetNode<CollisionShape2D>("Collision");
 		_attackArea = GetNode<Area2D>("AttackArea");
@@ -49,7 +48,7 @@ public class Slug : KinematicBody2D
 		MovementToPath(delta);
 	}
 
-	public void PlayAnimationHurt()
+	public void Hit()
 	{
 		_animated.Play("Hurt");
 		//_collision.SetDeferred("disabled",true);
@@ -93,7 +92,7 @@ public class Slug : KinematicBody2D
 		*/
 
 		_animated.Play("Run");
-        _animatorScript.RotateSprite(-_moveDirection,_animated);
+        AnimatorScript.RotateSprite(-_moveDirection,_animated);
 
 	}
 }

@@ -1,44 +1,49 @@
 using Godot;
 using System;
 
-public class AnimatorScript : AnimatedSprite
+namespace Animator
 {
-	public void PlayMoveAnimation(Vector2 moveDirection, bool isOnFloor,AnimatedSprite animatedSprite, float airVelocity = 0)
+	public class AnimatorScript
 	{
-		if (moveDirection.x == 0 && isOnFloor)
+		public static void PlayMoveAnimation(Vector2 moveDirection, bool isOnFloor,AnimatedSprite animatedSprite, float airVelocity = 0)
 		{
-			animatedSprite.Play("Idle");
-		}
-		else if (moveDirection.x !=0 && isOnFloor)
-		{
-			animatedSprite.Play("Run");
+			if (moveDirection.x == 0 && isOnFloor)
+			{
+				animatedSprite.Play("Idle");
+			}
+			else if (moveDirection.x !=0 && isOnFloor)
+			{
+				animatedSprite.Play("Run");
+			}
+
+			if (airVelocity < 0 && !isOnFloor)
+			{
+				animatedSprite.Play("JumpUp");
+			}
+			else if (airVelocity > 0 && !isOnFloor)
+			{
+				animatedSprite.Play("JumpDown");
+			}
 		}
 
-		if (airVelocity < 0 && !isOnFloor)
+		public static void RotateSprite(Vector2 moveDirection, AnimatedSprite animatedSprite)
 		{
-			animatedSprite.Play("JumpUp");
+			if (moveDirection.x > 0)
+				animatedSprite.Scale = new Vector2(1,1);
+			else if (moveDirection.x <0)
+				animatedSprite.Scale = new Vector2(-1,1);
 		}
-		else if (airVelocity > 0 && !isOnFloor)
+	/*	
+		public void RotateParticle(Vector2 moveDirection , Particles2D particles2D)
 		{
-			animatedSprite.Play("JumpDown");
+			if (moveDirection.x > 0)
+				particles2D.ProcessMaterial. = false;
+			else if (moveDirection.x <0)
+				animatedSprite.FlipH = true;
+
 		}
+		*/
 	}
 
-	public void RotateSprite(Vector2 moveDirection, AnimatedSprite animatedSprite)
-	{
-		if (moveDirection.x > 0)
-			animatedSprite.Scale = new Vector2(1,1);
-		else if (moveDirection.x <0)
-			animatedSprite.Scale = new Vector2(-1,1);
-	}
-/*	
-	public void RotateParticle(Vector2 moveDirection , Particles2D particles2D)
-	{
-		if (moveDirection.x > 0)
-			particles2D.ProcessMaterial. = false;
-		else if (moveDirection.x <0)
-			animatedSprite.FlipH = true;
-
-	}
-	*/
 }
+

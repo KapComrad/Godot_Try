@@ -22,6 +22,7 @@ window/stretch/aspect="keep_height"
 [global]
 
 text=false
+physi=false
 
 [importer_defaults]
 
