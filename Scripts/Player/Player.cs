@@ -93,10 +93,11 @@ public class Player : KinematicBody2D
 		{
 			_jumpNumber--;
 			_airVelocity = _jumpForce;
-			_rayCast2D.SetDeferred("enabled", true);
 			_isOnFloor = false;
 			_playerAudio.PlayJumpSound();
 		}
+		if (_isOnFloor == false)
+			_rayCast2D.SetDeferred("enabled", true);
 		if (_isOnFloor && _rayCast2D.Enabled)
 			_rayCast2D.SetDeferred("enabled", false);
 
@@ -112,7 +113,7 @@ public class Player : KinematicBody2D
 	}
 	private void IsHitOnCeiling()
 	{
-		if (IsOnCeiling()) _airVelocity =0;
+		if (IsOnCeiling()) _airVelocity = 0;
 	}
 
 	private void HitEnemy()

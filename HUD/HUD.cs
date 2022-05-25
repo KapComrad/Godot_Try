@@ -45,7 +45,6 @@ public class HUD : Control
 	{
 		currentScore += score;
 		string textScore = currentScore.ToString();
-		GD.Print(textScore);
 		_labelNode.Text = textScore;
 
 	}
