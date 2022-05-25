@@ -48,16 +48,17 @@ public class Slug : KinematicBody2D, IDamagable
 		MovementToPath(delta);
 	}
 
-	public void Hit()
+	public async void Hit()
 	{
 		_animated.Play("Hurt");
-		//_collision.SetDeferred("disabled",true);
-		//_attackArea.SetDeferred("monitoring",false);
-		//_attackArea.SetDeferred("monitorable",false);
 		_enabledPath = false;
 		_patricles.QueueFree();
 		_collision.QueueFree();
 		_attackArea.QueueFree();
+		await ToSignal(_animated , "animation_finished");
+		_animated.Play("Destroy");
+		await ToSignal(_animated, "animation_finished");
+		QueueFree();
 	}
 
 	public void Attack(Node2D player)

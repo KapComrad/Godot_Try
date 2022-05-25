@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using Items;
-using System.Threading.Tasks;
 
 public class Gem : StaticBody2D, IPickable
 {

@@ -7,7 +7,7 @@
 [ext_resource path="res://Gem.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Eagle.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Slug.tscn" type="PackedScene" id=12]
-[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=13]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Sounds/Background/8Bit DNA Loop.wav" type="AudioStream" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=10]
