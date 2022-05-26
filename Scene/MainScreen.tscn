@@ -5,10 +5,10 @@
 [ext_resource path="res://Fonts/28MainFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Assets/Sunny-land-assets-files/Sound/platformer_level03.mp3" type="AudioStream" id=4]
 [ext_resource path="res://Assets/Sunny-land-assets-files/PNG/environment/environment-preview.png" type="Texture" id=5]
-[ext_resource path="res://Slug.tscn" type="PackedScene" id=6]
-[ext_resource path="res://StartButton.cs" type="Script" id=7]
-[ext_resource path="res://OptionsButton.cs" type="Script" id=8]
-[ext_resource path="res://ExitButton.cs" type="Script" id=9]
+[ext_resource path="res://Scene/Slug.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/StartButton.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/OptionsButton.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/ExitButton.cs" type="Script" id=9]
 
 [sub_resource type="Curve2D" id=1]
 _data = {

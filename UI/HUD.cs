@@ -7,7 +7,8 @@ public class HUD : Control
 	private Player _player;
 	private Texture _hpTexture;
 	public Label _labelNode; 
-	private int currentScore;
+	private int _currentScore;
+	private int _currentHP;
 	public override void _Ready()
 	{
 		_hpTexture = ResourceLoader.Load("res://Assets/Hearts/PNG/basic/heart.png") as Texture;
@@ -17,24 +18,24 @@ public class HUD : Control
 
 	private void UpdateHP(int hp)
 	{
-		int currentHP = _hpContainer.GetChildCount();
-		if (hp > currentHP)
+		if (hp > _currentHP)
 		{
-			for (int i = 0 ; i < (hp - currentHP); i++)
+			for (int i = 0 ; i < (hp - _currentHP); i++)
 			{
 				TextureRect textureRect = new TextureRect();
 				textureRect.Texture = _hpTexture;
 				_hpContainer.AddChild(textureRect);
 			}
 		}
-		else if (hp < currentHP)
+		else if (hp < _currentHP)
 		{
-			for (int i = 0; i < (currentHP - hp); i++)
+			for (int i = 0; i < (_currentHP - hp); i++)
 			{
 				_hpContainer.RemoveChild(_hpContainer.GetChild(0));
 				
 			}
 		}
+		_currentHP = _hpContainer.GetChildCount();
 	}
 	public void PlayerHpChange(int hp)
 	{
@@ -43,9 +44,14 @@ public class HUD : Control
 
 	private void ScoreUpdate(int score)
 	{
-		currentScore += score;
-		string textScore = currentScore.ToString();
+		_currentScore += score;
+		string textScore = _currentScore.ToString();
 		_labelNode.Text = textScore;
+		if (_currentScore % 10 == 0)
+		{
+			Player.Hp++;
+			UpdateHP(Player.Hp);
+		}
 
 	}
 	public void AddScore(int score)

@@ -18,9 +18,10 @@ public class Player : KinematicBody2D
 	
 	[Export] private float _speed = 100;
 	[Export] private float _jumpForce = -5f;
-	[Export] private int _jumpNumber = 1;
+	private int _jumpNumber = 1;
+	public static int MaxJumpNumber = 1;
 	private float _airVelocity = 0;
-	[Export] private int _hp = 3;
+	public static int Hp = 3;
 	private int _force;
 	private float _saveTime = 0f;
 	[Export] private float _maxSaveTime = 1f;
@@ -88,7 +89,7 @@ public class Player : KinematicBody2D
 
 	private void Jump()
 	{
-		if (_isOnFloor) _jumpNumber = 1;
+		if (_isOnFloor) _jumpNumber = MaxJumpNumber;
 		if (Input.IsActionJustPressed("Jump") && _jumpNumber != 0)
 		{
 			_jumpNumber--;
@@ -96,11 +97,12 @@ public class Player : KinematicBody2D
 			_isOnFloor = false;
 			_playerAudio.PlayJumpSound();
 		}
+/*
 		if (_isOnFloor == false)
 			_rayCast2D.SetDeferred("enabled", true);
 		if (_isOnFloor && _rayCast2D.Enabled)
 			_rayCast2D.SetDeferred("enabled", false);
-
+*/
 		if (_airVelocity <= 0)
 		{
 			_airVelocity += _gravity.y / 4;
@@ -168,8 +170,8 @@ public class Player : KinematicBody2D
 
 	private void ChangeHp(int change)
 	{
-		_hp -= change;
-		EmitSignal("HpChange", _hp);
+		Hp -= change;
+		EmitSignal("HpChange", Hp);
 	}
 
 }

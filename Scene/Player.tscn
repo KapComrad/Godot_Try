@@ -21,8 +21,8 @@
 [ext_resource path="res://Assets/Sunny-land-assets-files/PNG/sprites/player/climb/player-climb-2.png" type="Texture" id=19]
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=20]
 [ext_resource path="res://Scripts/Animation/AnimatorScript.cs" type="Script" id=21]
-[ext_resource path="res://PlayerAudio.cs" type="Script" id=22]
-[ext_resource path="res://PickUpItem.cs" type="Script" id=23]
+[ext_resource path="res://Scripts/PlayerAudio.cs" type="Script" id=22]
+[ext_resource path="res://Scripts/PickUpItem.cs" type="Script" id=23]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -31,9 +31,19 @@ animations = [ {
 "name": "Run",
 "speed": 10.0
 }, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "JumpDown",
+"speed": 8.0
+}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "Hurt",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "Idle",
 "speed": 8.0
 }, {
 "frames": [ ExtResource( 12 ), ExtResource( 13 ) ],
@@ -50,16 +60,6 @@ animations = [ {
 "loop": true,
 "name": "Climb",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 8.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
-"name": "JumpDown",
-"speed": 8.0
 } ]
 
 [sub_resource type="Animation" id=4]
@@ -114,6 +114,7 @@ script = ExtResource( 21 )
 
 [node name="RayCastDown" type="RayCast2D" parent="."]
 position = Vector2( -1, 0 )
+enabled = true
 cast_to = Vector2( 0, 5 )
 collision_mask = 4
 
