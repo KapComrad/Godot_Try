@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using GlobalSpace;
 
 public class StartButton : Button
 {
@@ -7,6 +8,8 @@ public class StartButton : Button
     {
         if (Pressed)
         {
+            GetTree().Paused = false;
+            Global.IsGameStarted = true;
             GetTree().ChangeScene("res://Scene/BaseLevel.tscn");
         }
 

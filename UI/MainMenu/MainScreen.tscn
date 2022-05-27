@@ -1,24 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/MainTheme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/MainFonts.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Fonts/28MainFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Assets/Sunny-land-assets-files/Sound/platformer_level03.mp3" type="AudioStream" id=4]
 [ext_resource path="res://Assets/Sunny-land-assets-files/PNG/environment/environment-preview.png" type="Texture" id=5]
-[ext_resource path="res://Scene/Slug.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/StartButton.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/OptionsButton.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/ExitButton.cs" type="Script" id=9]
-
-[sub_resource type="Curve2D" id=1]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 230, 201, 0, 0, 0, 0, 426, 201 )
-}
-
-[sub_resource type="Curve2D" id=2]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 29, 272, 0, 0, 0, 0, 173, 272, 0, 0, 0, 0, 228, 298, 0, 0, 0, 0, 437, 298, 0, 0, 0, 0, 459, 277, 0, 0, 0, 0, 532, 276, 0, 0, 0, 0, 574, 230, 0, 0, 0, 0, 841, 227 )
-}
 
 [sub_resource type="Animation" id=3]
 resource_name = "Clicked"
@@ -52,6 +41,7 @@ tracks/0/keys = {
 }
 
 [node name="MainScreen" type="Control"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -60,24 +50,6 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 5 )
 centered = false
 offset = Vector2( -700, 0 )
-
-[node name="Slug" parent="." instance=ExtResource( 6 )]
-position = Vector2( 420, 198 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Node" type="Node" parent="Slug"]
-
-[node name="Path2D" type="Path2D" parent="Slug/Node"]
-curve = SubResource( 1 )
-
-[node name="Slug2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 45.0001, 272 )
-scale = Vector2( 1.5, 1.5 )
-
-[node name="Node" type="Node" parent="Slug2"]
-
-[node name="Path2D" type="Path2D" parent="Slug2/Node"]
-curve = SubResource( 2 )
 
 [node name="HMainContainter" type="HBoxContainer" parent="."]
 anchor_left = 0.1
