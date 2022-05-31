@@ -30,7 +30,7 @@ namespace UI
 		{
 			if (_optionsButton.Pressed)
 			{
-				GetNode<AnimationPlayer>("HMainContainter/OptionsButton/AnimationPlayer").Play("Clicked");
+				GetNode<Control>("OptionsMenu").Visible = true;
 			}
 		}
 

@@ -111,4 +111,4 @@ margin_right = 149.0
 margin_bottom = 40.0
 
 [connection signal="pressed" from="Panel/BackButton" to="." method="BackButtonClicked"]
-[connection signal="drag_ended" from="Panel/VBoxContainer/HBoxContainer/VolumeSlider" to="." method="VolumeSlider"]
+[connection signal="value_changed" from="Panel/VBoxContainer/HBoxContainer/VolumeSlider" to="." method="VolumeSliderChanged"]

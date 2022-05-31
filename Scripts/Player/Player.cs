@@ -97,12 +97,6 @@ public class Player : KinematicBody2D
 			_isOnFloor = false;
 			_playerAudio.PlayJumpSound();
 		}
-/*
-		if (_isOnFloor == false)
-			_rayCast2D.SetDeferred("enabled", true);
-		if (_isOnFloor && _rayCast2D.Enabled)
-			_rayCast2D.SetDeferred("enabled", false);
-*/
 		if (_airVelocity <= 0)
 		{
 			_airVelocity += _gravity.y / 4;

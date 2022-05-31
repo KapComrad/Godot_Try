@@ -70,6 +70,7 @@ margin_bottom = 222.0
 custom_fonts/font = ExtResource( 2 )
 text = "Exit to Dekstop"
 
+[connection signal="pressed" from="PauseContainer/CenterContainer/VBoxContainer/ContinueButton" to="." method="ContinueButtonClicked"]
 [connection signal="pressed" from="PauseContainer/CenterContainer/VBoxContainer/OptionsButton" to="." method="OptionsButtonClicked"]
 [connection signal="pressed" from="PauseContainer/CenterContainer/VBoxContainer/MainMenuExitButton" to="." method="MainMenuExitButtonClicked"]
 [connection signal="pressed" from="PauseContainer/CenterContainer/VBoxContainer/ExitButton" to="." method="ExitButtonClicked"]
