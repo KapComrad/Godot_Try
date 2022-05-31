@@ -36,10 +36,15 @@ public class HUD : Control
 			}
 		}
 		_currentHP = _hpContainer.GetChildCount();
+		if (_currentHP == 0)
+		{
+			GetTree().ChangeScene("res://Scene/DeadMenu.tscn");
+		}
 	}
 	public void PlayerHpChange(int hp)
 	{
 		UpdateHP(hp);
+
 	}
 
 	private void ScoreUpdate(int score)
