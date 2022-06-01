@@ -61,8 +61,8 @@ public class Player : KinematicBody2D
 
 		_isOnFloor = IsOnFloor();
 		
-		AnimatorScript.PlayMoveAnimation(_moveDirection, _isOnFloor,_animator, _airVelocity);
-		AnimatorScript.RotateSprite(_moveDirection,_animator);
+		AnimatorObject.PlayMoveAnimation(_moveDirection, _isOnFloor,_animator, _airVelocity);
+		AnimatorObject.RotateSprite(_moveDirection,_animator);
 		SafeTime(delta);
 	}
 

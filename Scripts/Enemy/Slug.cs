@@ -109,14 +109,14 @@ public class Slug : KinematicBody2D, IDamagable
 			{
 				_moveDirection.x = _wallDetectorRay.CastTo.x * _speed;
 				MoveAndSlide(_moveDirection, _upDirection);
-				AnimatorScript.RotateSprite(-_moveDirection,_animated);
+				AnimatorObject.RotateSprite(-_moveDirection,_animated);
 				_animated.Play("Run");
 			}
 			if (_patrolBackward)
 			{
 				_moveDirection.x = -_wallDetectorRay.CastTo.x * _speed;
 				MoveAndSlide(_moveDirection, _upDirection);
-				AnimatorScript.RotateSprite(-_moveDirection,_animated);
+				AnimatorObject.RotateSprite(-_moveDirection,_animated);
 				_animated.Play("Run");
 			}
 		}

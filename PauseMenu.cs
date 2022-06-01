@@ -8,7 +8,7 @@ namespace UI
     {
         private Button _continueButton;
         private Button _optionsButton;
-        private Button _mainMenuExitButton;
+        private Button _exitToMainMenuButton;
         private Button _exitButton;
 
         [Signal]
@@ -17,7 +17,7 @@ namespace UI
         {
             _continueButton = GetNode<Button>("PauseContainer/CenterContainer/VBoxContainer/ContinueButton");
             _optionsButton = GetNode<Button>("PauseContainer/CenterContainer/VBoxContainer/OptionsButton");
-            _mainMenuExitButton = GetNode<Button>("PauseContainer/CenterContainer/VBoxContainer/MainMenuExitButton");
+            _exitToMainMenuButton = GetNode<Button>("PauseContainer/CenterContainer/VBoxContainer/MainMenuExitButton");
             _exitButton = GetNode<Button>("PauseContainer/CenterContainer/VBoxContainer/ExitButton");
         }
 
@@ -39,7 +39,7 @@ namespace UI
 
         private void MainMenuExitButtonClicked()
         {
-            if (_mainMenuExitButton.Pressed)
+            if (_exitToMainMenuButton.Pressed)
             {
                 GetTree().ChangeScene("res://UI/MainMenu/MainScreen.tscn");
             }

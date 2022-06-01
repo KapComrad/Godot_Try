@@ -53,3 +53,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
 text = "Exit to main menu"
+
+[connection signal="pressed" from="HBoxButtonContainer/RestartButton" to="." method="RestartButtonClicked"]
+[connection signal="pressed" from="HBoxButtonContainer/ExitToMainMenuButton" to="." method="ExitToMainMenuButtonClicked"]
