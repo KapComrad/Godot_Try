@@ -1,14 +1,16 @@
 using Godot;
-using System;
 
 namespace GlobalSpace
 {
 	public class Global : Node
 	{
-		public static bool IsGameStarted = false;
+        public static float GravityScale = 98.1f;
+        public static Vector2 Gravity = new Vector2(0, 1);
+        public static bool IsGameStarted = false;
 		private bool _showPauseScreen = false;
 		public static bool ShowMainScreen = false;
         private bool _fistTimeLaunch = true;
+		private bool _notused;
 
 		public override void _Ready()
 		{

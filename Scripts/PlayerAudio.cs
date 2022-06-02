@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class PlayerAudio : AudioStreamPlayer2D
 {
@@ -11,7 +10,7 @@ public class PlayerAudio : AudioStreamPlayer2D
         _soundJump = ResourceLoader.Load("res://Sounds/jump.wav") as AudioStream;
         _soundHit = ResourceLoader.Load("res://Sounds/hit.wav") as AudioStream;
         _soundPickUp = ResourceLoader.Load("res://Sounds/pickup.wav") as AudioStream;
-        
+
     }
 
     public void PlayJumpSound()

@@ -1,9 +1,8 @@
 using Godot;
-using System;
 
 public class OptionsButton : Button
 {
-        private void ButtonClicked()
+    private void ButtonClicked()
     {
         if (Pressed)
         {
