@@ -25,13 +25,21 @@ namespace UI
             }
         }
 
-        private void VolumeSliderChanged()
+        private void VolumeSliderChanged(float Value)
         {
-            GD.Print("Changed");
             AudioServer.SetBusVolumeDb(
                 AudioServer.GetBusIndex("Master"),
                 (float)_volumeSlider.Value
             );
+            GD.Print(Value);
+            if (Value == -24f)
+            {
+                AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"),true);
+            }
+            else
+            {
+                AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"),false);
+            }
         }
     }
 }
