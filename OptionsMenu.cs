@@ -29,16 +29,16 @@ namespace UI
         {
             AudioServer.SetBusVolumeDb(
                 AudioServer.GetBusIndex("Master"),
-                (float)_volumeSlider.Value
+                Value
             );
             GD.Print(Value);
             if (Value == -24f)
             {
-                AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"),true);
+                AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), true);
             }
             else
             {
-                AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"),false);
+                AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), false);
             }
         }
     }
